@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7916424323997463445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6274883337152943585}
+  - component: {fileID: 8810658793590593906}
+  m_Layer: 0
+  m_Name: Road
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6274883337152943585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916424323997463445}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8810658793590593906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916424323997463445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45670fdec1d89d8458f8e731115dbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cornerLeftForwardRoad2x2Prefab: {fileID: 6836481991368178625, guid: becd85701af04f84b9ecd138be7d26c2,
+    type: 3}
+  cornerRightForwardRoad2x2Prefab: {fileID: 6836481991368178625, guid: f20eb27bced0e8d478fef59618c45425,
+    type: 3}
+  cornerLeftBackRoad2x2Prefab: {fileID: 6836481991368178625, guid: 4127955b0fe604945941b843678ff043,
+    type: 3}
+  roadEnterExit4x18Prefab: {fileID: 6836481991368178625, guid: 4afeaf141c97a2944af4b5e2700ebd5d,
+    type: 3}
+  horizontalRoad1x2Prefab: {fileID: 6836481991368178625, guid: 65553514feba0ab418793f30e8f1daef,
+    type: 3}
+  verticalRoad3x2Prefab: {fileID: 6836481991368178625, guid: 3e89a40a340efa64bb0be0c52b8c24c6,
+    type: 3}
+  parkingLotForward3x1LeftPrefab: {fileID: 6836481991368178625, guid: 60b8dcfe3f1c6ca4da55e342f80b1365,
+    type: 3}
+  parkingLotForward3x1RightPrefab: {fileID: 6836481991368178625, guid: ce2dcb1b024ef284ab47bfc795835bd9,
+    type: 3}
+  parkingLotBack3x1LeftPrefab: {fileID: 6836481991368178625, guid: dd36d433323116f46a64a816e7621683,
+    type: 3}
+  parkingLotBack3x1RightPrefab: {fileID: 6836481991368178625, guid: d11962077e18b9c4cb20fd1ccea51124,
+    type: 3}
+  verticalRoad2x1Prefab: {fileID: 6836481991368178625, guid: af49c0b37a26e3647bcac785eb3dc4fe,
+    type: 3}
+  parkingLot1x1Prefab: {fileID: 6836481991368178625, guid: a680a1cfb6227ed4a93f96cc50e4d7dc,
+    type: 3}
