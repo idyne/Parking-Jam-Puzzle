@@ -14,6 +14,7 @@ namespace FateGames.Core
         public bool Working { get; private set; } = false;
 
         public float TimeLeft { get => audioSource.clip.length - audioSource.time; }
+        public AudioSource AudioSource { get => audioSource; }
 
         private void Awake()
         {
@@ -67,7 +68,11 @@ namespace FateGames.Core
 
         public void OnStop()
         {
+            transform.SetParent(null);
             StartCoroutine(OnStopRoutine());
+
+
+
         }
 
         private IEnumerator OnStopRoutine()

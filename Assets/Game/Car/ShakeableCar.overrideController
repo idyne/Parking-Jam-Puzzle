@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShakeableCar
+  m_Controller: {fileID: 9100000, guid: 58d3def822c971c44b2ba52fed14ca20, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 549c04a9e3c3bd84993da5017314e8be, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 549c04a9e3c3bd84993da5017314e8be, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 94af4fb26772d4349a3ada64eebca99e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 94af4fb26772d4349a3ada64eebca99e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b545e1a2aecc96e4b91e3f473876a012, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b545e1a2aecc96e4b91e3f473876a012, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 437ca51703dea35449951c73edbb317d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 437ca51703dea35449951c73edbb317d, type: 2}

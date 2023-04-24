@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5662394764891235601}
   - component: {fileID: 729372991078101484}
   - component: {fileID: 6274434900795892135}
+  - component: {fileID: 8208716995512106692}
   m_Layer: 3
   m_Name: Car
   m_TagString: Car
@@ -51,6 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091fe9bbc2ef30f4a8feed82da248860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carHitSound: {fileID: 11400000, guid: 00b113ac96839e748a1bc63ac3c18d48, type: 2}
+  carDriveSound: {fileID: 11400000, guid: ec0fde1ecf9d2d740916323cd4943144, type: 2}
+  shakeableAnimator: {fileID: 8208716995512106692}
   carTag: Car
   speed: 15
   raycastBlockLayerMask:
@@ -139,6 +143,26 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &8208716995512106692
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794297795824082566}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 8621e1c75eff270428ddc4d1ce665d42, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &4489036939452235687
 GameObject:
   m_ObjectHideFlags: 0

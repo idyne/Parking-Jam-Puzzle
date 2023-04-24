@@ -118,6 +118,7 @@ public class Road : FateMonoBehaviour
         lastBuiltRoadParkingLotLength = parkingLotLength;
     }
 }
+#if UNITY_EDITOR
 [CustomEditor(typeof(Road))]
 public class RoadEditor : Editor
 {
@@ -143,3 +144,4 @@ public class RoadEditor : Editor
             road.Build(parkingLotWidth, parkingLotLength);
     }
 }
+#endif

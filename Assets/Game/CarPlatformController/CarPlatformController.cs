@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using FateGames.Core;
 using DG.Tweening;
-public class CarPlatformController : Singleton<CarPlatformController>
+public class CarPlatformController : FateMonoBehaviour
 {
+    private static CarPlatformController instance = null;
+    public static CarPlatformController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = instance = FindObjectOfType<CarPlatformController>();
+            }
+            return instance;
+        }
+    }
     [SerializeField] private CarPlatformRuntimeSet carPlatformRuntimeSet, occupiedCarPlatformRuntimeSet, availableCarPlatformRuntimeSet;
     [SerializeField] private CarRuntimeSet carRuntimeSet;
     private List<Car> carsOnPlatforms = new();
@@ -92,7 +104,7 @@ public class CarPlatformController : Singleton<CarPlatformController>
     {
         //print("Remaining cars: " + carRuntimeSet.Items.Count);
         //print("Remaining availableCarPlatformRuntimeSet: " + availableCarPlatformRuntimeSet.Items.Count);
-        print("removeQueueCount: " + removeQueue.Count);
+        //print("removeQueueCount: " + removeQueue.Count);
         if (carRuntimeSet.Items.Count == 0)
         {
             GameManager.Instance.FinishLevel(true);
@@ -113,6 +125,7 @@ public class CarPlatformController : Singleton<CarPlatformController>
 
     private void PlaceCars()
     {
+
         //Debug.Log("occupiedCarPlatformRuntimeSet: " + occupiedCarPlatformRuntimeSet.Items.Count);
         while (occupiedCarPlatformRuntimeSet.Items.Count > 0)
         {

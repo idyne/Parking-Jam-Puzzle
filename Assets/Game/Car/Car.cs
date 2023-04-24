@@ -8,8 +8,12 @@ using PathCreation;
 
 [RequireComponent(typeof(RoadFollower))]
 [RequireComponent(typeof(CarUIPlacer))]
-public class Car : FateMonoBehaviour, ICarRaycastBlock
+public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
 {
+    [SerializeField] private SoundEntity carHitSound;
+    [SerializeField] private SoundEntity carDriveSound;
+    private SoundWorker carDriveSoundWorker;
+    [SerializeField] private Animator shakeableAnimator;
     [SerializeField] private string carTag = "Car";
     [SerializeField] private float speed = 10;
     private RoadFollower roadFollower;
@@ -45,6 +49,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock
     private void Awake()
     {
         carUIPlacer = GetComponent<CarUIPlacer>();
+        Debug.Log(carUIPlacer);
         roadFollower = GetComponent<RoadFollower>();
         roadFollower.OnReached += OnReachedEndOfRoad;
         movement = new(this, 1 / speed);
@@ -81,12 +86,17 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock
 
     private void OnReachedEndOfRoad()
     {
+        DOTween.To(() => carDriveSoundWorker.AudioSource.volume, (float x) => carDriveSoundWorker.AudioSource.volume = x, 0, 0.1f);
+
         carsOnRoadRuntimeSet.Remove(this);
         reached = true;
         CarPlatformController.Instance.Place(this);
     }
 
-    public void Place(CarPlatform carPlatform) => carUIPlacer.Place(carPlatform);
+    public void Place(CarPlatform carPlatform) {
+        if (carUIPlacer == null) Debug.Log("Zurna");
+        carUIPlacer.Place(carPlatform);
+    }
     public void Free() => carUIPlacer.Free();
 
     public void OnDrag(Vector3 delta)
@@ -127,8 +137,10 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock
         Transform point = direction == DragDirection.Forward ? frontPoint : backPoint;
         if (Physics.SphereCast(point.position - point.forward, 0.9f, point.forward, out RaycastHit hit, Mathf.Infinity, raycastBlockLayerMask))
         {
+            shakeableAnimator.enabled = false;
+            Transform hitTransform = hit.transform;
             Moving = true;
-            ICarRaycastBlock raycastBlock = hit.transform.GetComponent<ICarRaycastBlock>();
+            ICarRaycastBlock raycastBlock = hitTransform.GetComponent<ICarRaycastBlock>();
             float hitObjectWidth = raycastBlock.GetWidth(point.forward);
             Vector3 hitObjectOrigin = raycastBlock.GetOriginPosition();
             Vector3 differenceWithHitObjectOrigin = hitObjectOrigin - point.position;
@@ -138,39 +150,59 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock
             float distance = (hitPoint - point.position).magnitude;
             transform.position += point.forward * distance;
             meshTransform.position = currentMeshPosition;
-            if (hit.transform.CompareTag("Road"))
+            if (hitTransform.CompareTag("Road"))
             {
                 goingToRoad = true;
-                Debug.Log("Hit Road");
+                DOVirtual.DelayedCall(CheckCarOnRoad(direction, distance), () =>
+                {
+                    carDriveSoundWorker = GameManager.Instance.PlaySound(carDriveSound, point.position);
+                    carDriveSoundWorker.transform.SetParent(transform);
+                });
             }
-            else if (hit.transform.CompareTag("Car"))
+            else if (hitTransform.CompareTag("Car"))
             {
-                Debug.Log("Hit Car");
                 hit.transform.GetComponent<ICarRaycastBlock>().GetWidth(point.forward);
-            }
-            else if (hit.transform.CompareTag("Block"))
-            {
-                Debug.Log("Hit Block");
             }
             meshTransform.DOLocalMove(Vector3.zero, distance / speed).OnComplete(() =>
             {
-                if (hit.transform.CompareTag("Road"))
+                if (hitTransform.CompareTag("Road"))
                 {
                     GetOnRoad(direction);
 
                 }
-                else if (hit.transform.CompareTag("Car"))
+                else
                 {
-                    //Debug.Log("Hit Car");
-                }
-                else if (hit.transform.CompareTag("Block"))
-                {
-                    //Debug.Log("Hit Block");
+                    GameManager.Instance.PlaySound(carHitSound, point.position);
+                    shakeableAnimator.enabled = true;
+                    shakeableAnimator.SetTrigger(direction == DragDirection.Forward ? "HitForward" : "HitBack");
+                    IShakeable shakeable = hitTransform.GetComponent<IShakeable>();
+                    if (shakeable != null)
+                    {
+                        shakeable.Shake(transform);
+                    }
                 }
                 Moving = false;
             });
         }
         gameObject.layer = layerMask;
+    }
+
+    private float CheckCarOnRoad(DragDirection direction, float distanceToRoad)
+    {
+        Transform point = direction == DragDirection.Forward ? frontPoint : backPoint;
+        float waitingTime = 0;
+        float dist = Road.VertexPath.GetClosestDistanceAlongPath(point.position);
+        for (int i = 0; i < carsOnRoadRuntimeSet.Items.Count; i++)
+        {
+            Car roadCar = carsOnRoadRuntimeSet.Items[i];
+            float carDist = Road.VertexPath.GetClosestDistanceAlongPath(roadCar.transform.position);
+            float diff = dist - carDist;
+            if (diff <= 10 + distanceToRoad)
+            {
+                waitingTime = (diff + 1 + distanceToRoad) / roadCar.Speed;
+            }
+        }
+        return waitingTime;
     }
 
     private void GetOnRoad(DragDirection direction)
@@ -204,7 +236,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock
             DOVirtual.DelayedCall(waitingTime, getOnRoad);
         else getOnRoad();
     }
-
+    #region ICarRaycastBlock
     public float GetWidth(Vector3 forwardVector)
     {
         Vector3 vector1 = forwardVector;
@@ -235,7 +267,52 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock
     {
         return transform.position;
     }
+    #endregion
+    #region IShakeable
+    public void Shake(Transform hitterTransform)
+    {
+        // Assume you have two objects: object1 and object2
 
+        Vector3 relativePos = hitterTransform.position - transform.position;
+        float dotProductRight = Vector3.Dot(relativePos, transform.right);
+        float dotProductForward = Vector3.Dot(relativePos, transform.forward);
+        if (Mathf.Abs(dotProductRight) > Mathf.Abs(dotProductForward))
+        {
+            if (dotProductRight > 0)
+            {
+                shakeableAnimator.SetTrigger("Right");
+                //Debug.Log("object2 is on the relative right of object1");
+            }
+            else if (dotProductRight < 0)
+            {
+                //Debug.Log("object2 is on the relative left of object1");
+                shakeableAnimator.SetTrigger("Left");
+            }
+            else
+            {
+                //Debug.Log("object1 and object2 are in the same position relative to each other on the x-axis");
+            }
+        }
+        else
+        {
+            if (dotProductForward > 0)
+            {
+                //Debug.Log("object2 is on the relative forward of object1");
+                shakeableAnimator.SetTrigger("Forward");
+            }
+            else if (dotProductForward < 0)
+            {
+                //Debug.Log("object2 is on the relative back of object1");
+                shakeableAnimator.SetTrigger("Back");
+            }
+            else
+            {
+                //Debug.Log("object1 and object2 are in the same position relative to each other on the z-axis");
+            }
+        }
+
+    }
+    #endregion
     public enum DragDirection { Forward, Back }
 
 }

@@ -33,7 +33,8 @@ namespace FateGames.Core
         {
             if (success)
             {
-                //Object.Instantiate(winScreen);
+                Object.Instantiate(winScreen);
+                GameManager.Instance.IncrementLevel();
                 gameState.Value = GameState.WIN_SCREEN;
                 OnLevelWon.Invoke();
             }

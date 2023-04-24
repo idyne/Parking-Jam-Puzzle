@@ -73,6 +73,7 @@ namespace FateGames.Core
             float pitch = Random.Range(entity.PitchRangeMin, entity.PitchRangeMax);
             worker.Initialize(entity.Clip, entity.Volume, pitch, entity.SpatialBlend, entity.Loop, position, ignoreListenerPause);
             worker.Play();
+            worker.transform.SetParent(null);
             if (!ignoreListenerPause && gameState.Value == GameState.PAUSED && pauseOnStartIfGamePaused)
             {
                 worker.Pause();

@@ -104,6 +104,11 @@ namespace FateGames.Core
             levelManager.FinishLevel(success);
         }
 
+        public void IncrementLevel()
+        {
+            saveData.Value.Level++;
+        }
+
         public void LoadCurrentLevel()
         {
             sceneManager.LoadCurrentLevel();

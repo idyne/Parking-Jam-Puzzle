@@ -27,7 +27,7 @@ public class CarMovement
         float previousAngle = 0;
         Vector3 point = transform.position + transform.forward * 2 + ((car.Length - 2) * 0.5f) * transform.right;
         Vector3 axis = forward ? Vector3.up : Vector3.down;
-        mySequence.Append(DOTween.To(() => currentAngle, (float x) => currentAngle = x, angle, unitMovementDuration).OnUpdate(() =>
+        mySequence.Append(DOTween.To(() => currentAngle, (float x) => currentAngle = x, angle, unitMovementDuration * 1.5f).OnUpdate(() =>
         {
             float delta = currentAngle - previousAngle;
             transform.RotateAround(point, axis, delta);

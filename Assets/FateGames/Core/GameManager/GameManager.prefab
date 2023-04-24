@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &486147624619081733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912026228199472886}
+  - component: {fileID: 7699979716120926921}
+  m_Layer: 0
+  m_Name: EventListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1912026228199472886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486147624619081733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2196546718344236182}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7699979716120926921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486147624619081733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72ded4bbe29d9648a4cace73085bbf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEventTuple:
+    events:
+    - {fileID: 11400000, guid: a3d21f5b53e49104c80cb19e31b9ec4c, type: 2}
+    - {fileID: 11400000, guid: f831fdfbe2010224eba1c8cdbdcf3168, type: 2}
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -1081917552667334646}
+          m_TargetAssemblyTypeName: FateGames.Core.GameManager, Assembly-CSharp
+          m_MethodName: LoadCurrentLevel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!1 &8681148343581878937
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +92,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1912026228199472886}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +111,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 35af722527cf21148bdd90a70a23f45e, type: 2}
   defaultTargetFrameRate: -1
+  autoSave: 1
+  autoSavePeriod: 10
+  overrideSave: 0
+  saveData: {fileID: 11400000, guid: 2fbe29c554af5d84b9bdecaab48fec86, type: 2}
+  overrideSaveData: {fileID: 11400000, guid: b5d6f087333e7a046997d6bebf2f27b2, type: 2}
+  firstLevelSceneIndex: 1
+  loop: 1
+  loadingScreen: {fileID: 794140202483712576, guid: 831193ba506c21345bb4923294711758,
+    type: 3}
+  autoStart: 1
+  loseScreen: {fileID: 5877225821496454348, guid: 32dae432a25057d41a2c84541dc21453,
+    type: 3}
+  winScreen: {fileID: 5877225821496454348, guid: 0206f90b847f0a44984724f868fc2c5d,
+    type: 3}
+  soundOn: {fileID: 11400000, guid: 665b4bfef9547ec4aa107fdf891ed66a, type: 2}
+  soundWorkerPrefab: {fileID: 6660387099917091304, guid: 7fbc3e6b3f1fc354099ca4ed62c09742,
+    type: 3}
+  workingWorkerSet: {fileID: 11400000, guid: 483d9c9c8a9c3b744b36428ba1e45c77, type: 2}
+  availableWorkerSet: {fileID: 11400000, guid: a9c28c66a5fe9f440a205ec292a2ee6b, type: 2}
+  vibrationOn: {fileID: 11400000, guid: 7d63e4f11e0e45541ba946f741801d72, type: 2}
   onPause:
     m_PersistentCalls:
       m_Calls:
@@ -137,26 +221,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  autoSave: 1
-  autoSavePeriod: 10
-  overrideSave: 0
-  saveData: {fileID: 11400000, guid: 2fbe29c554af5d84b9bdecaab48fec86, type: 2}
-  overrideSaveData: {fileID: 11400000, guid: b5d6f087333e7a046997d6bebf2f27b2, type: 2}
-  firstLevelSceneIndex: 1
-  loop: 1
-  loadingScreen: {fileID: 794140202483712576, guid: 831193ba506c21345bb4923294711758,
-    type: 3}
-  autoStart: 1
-  loseScreen: {fileID: 5877225821496454348, guid: 32dae432a25057d41a2c84541dc21453,
-    type: 3}
-  winScreen: {fileID: 5877225821496454348, guid: 0206f90b847f0a44984724f868fc2c5d,
-    type: 3}
-  soundOn: {fileID: 11400000, guid: 665b4bfef9547ec4aa107fdf891ed66a, type: 2}
-  soundWorkerPrefab: {fileID: 6660387099917091304, guid: 7fbc3e6b3f1fc354099ca4ed62c09742,
-    type: 3}
-  workingWorkerSet: {fileID: 11400000, guid: 483d9c9c8a9c3b744b36428ba1e45c77, type: 2}
-  availableWorkerSet: {fileID: 11400000, guid: a9c28c66a5fe9f440a205ec292a2ee6b, type: 2}
-  vibrationOn: {fileID: 11400000, guid: 7d63e4f11e0e45541ba946f741801d72, type: 2}
 --- !u!114 &629686677848972706
 MonoBehaviour:
   m_ObjectHideFlags: 0
