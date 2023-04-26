@@ -27,7 +27,7 @@ public class Road : FateMonoBehaviour
 
     private void Awake()
     {
-        Build(10, 12);
+        Build(12, 12);
     }
 
     private void BuildPath(int parkingLotWidth, int parkingLotLength)

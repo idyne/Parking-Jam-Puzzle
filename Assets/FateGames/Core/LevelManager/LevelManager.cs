@@ -40,6 +40,7 @@ namespace FateGames.Core
             }
             else
             {
+                Time.timeScale = 0;
                 Object.Instantiate(loseScreen);
                 gameState.Value = GameState.LOSE_SCREEN;
                 OnLevelFailed.Invoke();

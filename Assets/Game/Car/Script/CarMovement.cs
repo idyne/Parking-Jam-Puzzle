@@ -40,8 +40,16 @@ public class CarMovement
 
     public void CancelMovement()
     {
+        Debug.Log(tween);
+        if (tween != null)
+        {
+            Debug.Log(tween);
+            Debug.Log(tween.IsComplete());
+
+        }
         if (tween != null && tween.IsPlaying() && !tween.IsComplete())
         {
+            Debug.Log(tween);
             tween.Kill();
             tween = null;
         }

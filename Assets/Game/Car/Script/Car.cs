@@ -18,6 +18,8 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     [SerializeField] private SoundEntity carHitSound;
     [SerializeField] private SoundEntity carDriveSound;
     [SerializeField] private SoundEntity hornSound;
+    [SerializeField] private SoundEntity goToPlatformSound;
+    [SerializeField] private SoundEntity disappearSound;
     private SoundWorker carDriveSoundWorker;
     [SerializeField] private Animator shakeableAnimator;
     [SerializeField] private string carTag = "Car";
@@ -36,7 +38,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private float lastGoMadTime = float.MinValue;
-    private float goMadCooldown = 3;
+    private float goMadCooldown = 1.5f;
     private bool reached = false;
     private List<Car> sortedCarsOnRoad = new();
     public int Length { get => length; }
@@ -83,9 +85,11 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
 
     public void StopCar()
     {
-        Debug.Log("StopCar", this);
         if (!reached)
         {
+            Debug.Log("StopCar", this);
+            DOTween.Pause(transform);
+            DOTween.Pause(meshTransform);
             roadFollower.StopFollowing();
             movement.CancelMovement();
         }
@@ -94,7 +98,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     private void OnReachedEndOfRoad()
     {
         DOTween.To(() => carDriveSoundWorker.AudioSource.volume, (float x) => carDriveSoundWorker.AudioSource.volume = x, 0, 0.1f);
-
+        GameManager.Instance.PlaySound(goToPlatformSound, transform.position);
         carsOnRoadRuntimeSet.Remove(this);
         reached = true;
         CarPlatformController.Instance.Place(this);
@@ -125,6 +129,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
         //Debug.Log("Disappear", this);
         void onComplete()
         {
+            GameManager.Instance.PlaySound(disappearSound, transform.position);
             PooledEffect disappearEffect = disappearEffectPool.Get();
             disappearEffect.transform.position = transform.position + Vector3.up * 2;
             Deactivate();
@@ -245,6 +250,12 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
         waitingTime = difference / furthestCarOnRoad.speed - distanceToRoad / speed;
         return waitingTime;
 
+    }
+
+    public void StopDriveSound()
+    {
+        if (carDriveSoundWorker != null)
+            carDriveSoundWorker.Stop();
     }
 
     public void GoMad()

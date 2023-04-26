@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FateGames.Core;
 
 public class CarDragListener : MonoBehaviour
 {
     [SerializeField] private LayerMask carLayerMask;
+    [SerializeField] private GameStateVariable gameState;
     private Vector2 mousePositionOnSelect;
     private Camera mainCamera;
     private Car selectedCar;
@@ -15,7 +17,8 @@ public class CarDragListener : MonoBehaviour
     }
     private void Update()
     {
-        CheckDrag();
+        if (gameState.Value == GameState.IN_GAME)
+            CheckDrag();
     }
 
     private void CheckDrag()
