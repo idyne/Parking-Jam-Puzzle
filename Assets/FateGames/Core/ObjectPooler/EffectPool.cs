@@ -20,7 +20,9 @@ public class EffectPool : FateMonoBehaviour
     {
         if (pool.CountActive >= maxSize)
             pool.Release(activeEffects.Peek());
-        return pool.Get();
+        PooledEffect effect = pool.Get();
+        effect.transform.SetParent(null);
+        return effect;
     }
 
     public void Release(PooledEffect pooledEffect)

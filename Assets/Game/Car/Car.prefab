@@ -15,6 +15,11 @@ GameObject:
   - component: {fileID: 729372991078101484}
   - component: {fileID: 6274434900795892135}
   - component: {fileID: 8208716995512106692}
+  - component: {fileID: 1124039635540023065}
+  - component: {fileID: 8105940640381306970}
+  - component: {fileID: 4915879068886508619}
+  - component: {fileID: 8886466702441343347}
+  - component: {fileID: 6921525042921073263}
   m_Layer: 3
   m_Name: Car
   m_TagString: Car
@@ -52,8 +57,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091fe9bbc2ef30f4a8feed82da248860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tossEffectPool: {fileID: 1124039635540023065}
+  disappearEffectPool: {fileID: 8105940640381306970}
+  bodyMeshRenderer: {fileID: 0}
+  madEffectPools:
+  - {fileID: 4915879068886508619}
+  - {fileID: 8886466702441343347}
+  - {fileID: 6921525042921073263}
+  color: {r: 1, g: 1, b: 1, a: 1}
   carHitSound: {fileID: 11400000, guid: 00b113ac96839e748a1bc63ac3c18d48, type: 2}
   carDriveSound: {fileID: 11400000, guid: ec0fde1ecf9d2d740916323cd4943144, type: 2}
+  hornSound: {fileID: 11400000, guid: f0670818ed3b57a4da85200d2f061d25, type: 2}
   shakeableAnimator: {fileID: 8208716995512106692}
   carTag: Car
   speed: 15
@@ -163,6 +177,81 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1124039635540023065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794297795824082566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d241c4f2db5d50479b44b372e3f2458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab: {fileID: 48039298488390431, guid: 01a2f54145cb2fc4ea30537f97edc6d6,
+    type: 3}
+  maxSize: 10
+--- !u!114 &8105940640381306970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794297795824082566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d241c4f2db5d50479b44b372e3f2458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab: {fileID: 7307891910126824950, guid: 7e4409ba435c23746af7aff00256d59d,
+    type: 3}
+  maxSize: 10
+--- !u!114 &4915879068886508619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794297795824082566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d241c4f2db5d50479b44b372e3f2458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab: {fileID: 3597735530913818755, guid: d2e496f9d24b73345b245c2ef537b3ed,
+    type: 3}
+  maxSize: 10
+--- !u!114 &8886466702441343347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794297795824082566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d241c4f2db5d50479b44b372e3f2458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab: {fileID: 1126526595914276752, guid: 60345464378d6d9409fcdd067e5dcf7b,
+    type: 3}
+  maxSize: 10
+--- !u!114 &6921525042921073263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794297795824082566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d241c4f2db5d50479b44b372e3f2458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab: {fileID: 4703449274996276481, guid: 3265d560725d04740a863081002aaa82,
+    type: 3}
+  maxSize: 10
 --- !u!1 &4489036939452235687
 GameObject:
   m_ObjectHideFlags: 0
