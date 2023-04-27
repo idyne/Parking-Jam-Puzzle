@@ -181,6 +181,7 @@ namespace FateGames.Core
 
         void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
         {
+            Time.timeScale = 1;
             if (sceneManager.IsLevel(scene))
             {
                 gameState.Value = GameState.BEFORE_START;
