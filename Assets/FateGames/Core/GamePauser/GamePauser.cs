@@ -21,6 +21,7 @@ namespace FateGames.Core
         public void PauseGame()
         {
             if (gameState.Value == GameState.PAUSED) return;
+            Time.timeScale = 0;
             gameStateBeforePause = gameState.Value;
             gameState.Value = GameState.PAUSED;
             onPause.Invoke();
@@ -29,6 +30,7 @@ namespace FateGames.Core
         public void ResumeGame()
         {
             if (gameState.Value != GameState.PAUSED) return;
+            Time.timeScale = 1;
             gameState.Value = gameStateBeforePause;
             onResume.Invoke();
         }
