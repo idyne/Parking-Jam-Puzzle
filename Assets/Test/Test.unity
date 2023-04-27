@@ -38274,11 +38274,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -1081917552667334646, guid: d5a983cf469d2aa428a865a6cd2e1cb9,
-        type: 3}
-      propertyPath: defaultTargetFrameRate
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 2196546718344236182, guid: d5a983cf469d2aa428a865a6cd2e1cb9,
         type: 3}
       propertyPath: m_RootOrder

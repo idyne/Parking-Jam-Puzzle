@@ -21,6 +21,7 @@ public class Singleton<T> : FateMonoBehaviour where T : Component
             return instance;
         }
     }
+    protected bool duplicate = false;
     protected virtual void Awake()
     {
         RemoveDuplicates();
@@ -45,6 +46,7 @@ public class Singleton<T> : FateMonoBehaviour where T : Component
         }
         else
         {
+            duplicate = true;
             Destroy(gameObject);
         }
     }

@@ -46,6 +46,7 @@ namespace FateGames.Core
         protected override void Awake()
         {
             base.Awake();
+            if (duplicate) return;
             Initialize();
             if (!sceneManager.IsLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene()))
                 sceneManager.LoadCurrentLevel();
@@ -127,7 +128,11 @@ namespace FateGames.Core
             saveManager.SaveToDevice(saveData.Value);
         }
 
-        public void SetTargetFrameRate(int targetFrameRate) => Application.targetFrameRate = targetFrameRate;
+        public void SetTargetFrameRate(int targetFrameRate)
+        {
+            Application.targetFrameRate = targetFrameRate;
+            Debug.Log("TargetFrameRate: " + Application.targetFrameRate);
+        }
 
         public void PauseGame()
         {

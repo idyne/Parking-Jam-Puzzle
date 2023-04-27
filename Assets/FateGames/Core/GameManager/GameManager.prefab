@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 35af722527cf21148bdd90a70a23f45e, type: 2}
-  defaultTargetFrameRate: -1
+  defaultTargetFrameRate: 60
   autoSave: 1
   autoSavePeriod: 10
   overrideSave: 0
