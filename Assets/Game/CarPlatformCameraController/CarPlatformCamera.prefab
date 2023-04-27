@@ -145,6 +145,7 @@ MonoBehaviour:
   gameEventTuple:
     events:
     - {fileID: 11400000, guid: 3e8d4dcc20f32bc4db915916f5987aa5, type: 2}
+    - {fileID: 11400000, guid: 4245c85e1964e524abc3d17afdb34f4c, type: 2}
     response:
       m_PersistentCalls:
         m_Calls:
@@ -175,6 +176,7 @@ MonoBehaviour:
   gameEventTuple:
     events:
     - {fileID: 11400000, guid: 960121d60f3fc9f4eacb18967f59e1ce, type: 2}
+    - {fileID: 11400000, guid: ae2306fc4458869458cd7242ef6ba1ab, type: 2}
     response:
       m_PersistentCalls:
         m_Calls:

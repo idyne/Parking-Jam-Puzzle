@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 646948674440667826}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3819332727282128804}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 4567483355834754116}
   - component: {fileID: 5537584743962438296}
   - component: {fileID: 1253581780682978192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ParkingBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 9191644923749857946}
   - component: {fileID: 429093620309395756}
   - component: {fileID: 4557415068460962252}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: RoadBlock
   m_TagString: Block
   m_Icon: {fileID: 0}

@@ -60,11 +60,18 @@ public class CarPlatformController : FateMonoBehaviour
             }
             DOVirtual.DelayedCall(0.4f, () =>
             {
-                for (int i = 0; i < 3; i++)
+                IEnumerator removeRoutine(int count = 3)
                 {
+                    if (count == 0)
+                    {
+                        PlaceCars();
+                        yield break;
+                    }
                     RemoveFromQueue();
+                    yield return new WaitForSeconds(0.05f);
+                    yield return removeRoutine(count - 1);
                 }
-                PlaceCars();
+                StartCoroutine(removeRoutine(3));
             });
         }
         else

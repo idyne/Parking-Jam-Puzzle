@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using DG.Tweening;
 namespace FateGames.Core
 {
     public class SceneManager
@@ -47,6 +48,7 @@ namespace FateGames.Core
         {
             if (sceneIndex < 0 || sceneIndex >= UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings)
                 throw new System.ArgumentOutOfRangeException();
+            DOTween.KillAll();
             gameState.Value = GameState.LOADING;
             if (async)
                 GameManager.Instance.StartCoroutine (LoadSceneAsynchronouslyRoutine(sceneIndex));
