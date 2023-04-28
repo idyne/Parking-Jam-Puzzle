@@ -6,6 +6,15 @@ using FateGames.Core;
 using PathCreation;
 public class Road : FateMonoBehaviour
 {
+    private static Road instance = null;
+    public static Road Instance
+    {
+        get
+        {
+            if (instance == null) instance = FindObjectOfType<Road>();
+            return instance;
+        }
+    }
     [SerializeField] private GameObject cornerLeftForwardRoad2x2Prefab;
     [SerializeField] private GameObject cornerRightForwardRoad2x2Prefab;
     [SerializeField] private GameObject cornerLeftBackRoad2x2Prefab;
@@ -18,16 +27,20 @@ public class Road : FateMonoBehaviour
     [SerializeField] private GameObject parkingLotBack3x1RightPrefab;
     [SerializeField] private GameObject verticalRoad2x1Prefab;
     [SerializeField] private GameObject parkingLot1x1Prefab;
-    public static BezierPath BezierPath { get; private set; }
-    public static VertexPath VertexPath { get; private set; }
+    private PathCreator pathCreator;
+    public static BezierPath BezierPath => Instance.PathCreator.bezierPath;
+    public static VertexPath VertexPath => Instance.PathCreator.path;
 
     private Transform container;
-    public int lastBuiltRoadParkingLotWidth { get; private set; }
-    public int lastBuiltRoadParkingLotLength { get; private set; }
+    [SerializeField] public int lastBuiltRoadParkingLotWidth;
+    [SerializeField] public int lastBuiltRoadParkingLotLength;
+    public PathCreator PathCreator { get => pathCreator; }
+    public Vector3 origin => transform.position + lastBuiltRoadParkingLotWidth / 2f * Vector3.right + lastBuiltRoadParkingLotLength / 2f * Vector3.back;
 
     private void Awake()
     {
-        Build(12, 12);
+
+        pathCreator = GetComponent<PathCreator>();
     }
 
     private void BuildPath(int parkingLotWidth, int parkingLotLength)
@@ -43,8 +56,8 @@ public class Road : FateMonoBehaviour
         bezierPath.ControlPointMode = BezierPath.ControlMode.Automatic;
         bezierPath.AutoControlLength = 0.01f;
         bezierPath.GlobalNormalsAngle = 90;
-        BezierPath = bezierPath;
-        VertexPath = new VertexPath(bezierPath, transform);
+        PathCreator pathCreator = GetComponent<PathCreator>();
+        pathCreator.bezierPath = bezierPath;
     }
     public void Build(int parkingLotWidth, int parkingLotLength)
     {

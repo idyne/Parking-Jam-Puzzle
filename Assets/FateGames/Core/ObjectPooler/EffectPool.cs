@@ -41,13 +41,13 @@ public class EffectPool : FateMonoBehaviour
 
     public void OnGetEffect(PooledEffect pooledEffect)
     {
-        Debug.Log("OnGetEffect", pooledEffect);
+        //Debug.Log("OnGetEffect", pooledEffect);
         activeEffects.Enqueue(pooledEffect);
         pooledEffect.OnObjectSpawn();
     }
     public void OnReleaseEffect(PooledEffect pooledEffect)
     {
-        Debug.Log("OnReleaseEffect", pooledEffect);
+        //Debug.Log("OnReleaseEffect", pooledEffect);
         activeEffects.Dequeue();
         pooledEffect.OnRelease();
     }

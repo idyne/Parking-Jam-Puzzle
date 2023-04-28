@@ -6,11 +6,15 @@ using FateGames.Core;
 
 public class LevelGenerator : FateMonoBehaviour
 {
-    [SerializeField] private LayerMask occupierLayerMask;
+    [SerializeField] private LayerMask occupierLayerMask, blockLayerMask;
     [SerializeField] private int width = 4, length = 6;
     [SerializeField] private CarToGenerate[] carsToGenerate;
     [SerializeField] private GameObject roadBlockPrefab;
+    [SerializeField] private GameObject[] blockPrefabs;
+    [SerializeField] private GameObject roadPrefab;
+    [SerializeField] private int numberOfBlocks = 1;
     private List<Car> cars = new();
+    private List<GameObject> gameObjectsToDestroy = new();
 
     [System.Serializable]
     public class CarToGenerate
@@ -24,8 +28,11 @@ public class LevelGenerator : FateMonoBehaviour
 
     public void Generate()
     {
+        gameObjectsToDestroy.Clear();
         cars.Clear();
         while (transform.childCount > 0) DestroyImmediate(transform.GetChild(0).gameObject);
+        GenerateRoad();
+        GenerateBlocks();
         for (int i = 0; i < carsToGenerate.Length; i++)
         {
             CarToGenerate carToGenerate = carsToGenerate[i];
@@ -54,8 +61,21 @@ public class LevelGenerator : FateMonoBehaviour
                         }
                         else
                         {
-                            cars.Add(Instantiate(carToGenerate.prefab, position + transform.position, Quaternion.Euler(0, Random.value > 0.5f ? 0 : 180, 0), container).GetComponent<Car>());
-                            numberOfCars++;
+                            Car car = (PrefabUtility.InstantiatePrefab(carToGenerate.prefab, container) as GameObject).GetComponent<Car>();
+                            car.transform.SetPositionAndRotation(position + transform.position, Quaternion.Euler(0, Random.value > 0.5f ? 0 : 180, 0));
+                            cars.Add(car);
+                            if (AreCarsBlocked())
+                            {
+                                cars.Remove(car);
+                                DestroyImmediate(car.gameObject);
+                                continue;
+                            }
+                            else
+                            {
+                                gameObjectsToDestroy.Add(Instantiate(carToGenerate.prefab, position + transform.position, Quaternion.Euler(0, Random.value > 0.5f ? 0 : 180, 0), container));
+                                numberOfCars++;
+
+                            }
                         }
                     }
                     else
@@ -68,8 +88,21 @@ public class LevelGenerator : FateMonoBehaviour
                         }
                         else
                         {
-                            cars.Add(Instantiate(carToGenerate.prefab, position + transform.position, Quaternion.Euler(0, Random.value > 0.5f ? 90 : -90, 0), container).GetComponent<Car>());
-                            numberOfCars++;
+                            Car car = (PrefabUtility.InstantiatePrefab(carToGenerate.prefab, container) as GameObject).GetComponent<Car>();
+                            car.transform.SetPositionAndRotation(position + transform.position, Quaternion.Euler(0, Random.value > 0.5f ? 90 : -90, 0));
+                            cars.Add(car);
+                            if (AreCarsBlocked())
+                            {
+                                cars.Remove(car);
+                                DestroyImmediate(car.gameObject);
+                                continue;
+                            }
+                            else
+                            {
+                                gameObjectsToDestroy.Add(Instantiate(carToGenerate.prefab, position + transform.position, Quaternion.Euler(0, Random.value > 0.5f ? 90 : -90, 0), container));
+                                numberOfCars++;
+
+                            }
                         }
                     }
 
@@ -83,9 +116,38 @@ public class LevelGenerator : FateMonoBehaviour
 
 
         }
+
         GenerateRoadBlocks();
+        while (gameObjectsToDestroy.Count > 0)
+        {
+            GameObject gameObjectToDestroy = gameObjectsToDestroy[0];
+            gameObjectsToDestroy.RemoveAt(0);
+            DestroyImmediate(gameObjectToDestroy);
+        }
     }
 
+    private void GenerateBlocks()
+    {
+        for (int i = 0; i < numberOfBlocks; i++)
+        {
+            int count = 0;
+            while (count++ < 10000)
+            {
+                Vector3 position = new(0.5f + Random.Range(0, width), 0, -(0.5f + Random.Range(0, length)));
+                Collider[] colliders = Physics.OverlapBox(transform.position + position, new Vector3(0.4f, 2, 0.4f), Quaternion.identity, occupierLayerMask, QueryTriggerInteraction.Collide);
+                if (colliders.Length == 0)
+                {
+                    GameObject block = Instantiate(blockPrefabs[Random.Range(0, blockPrefabs.Length)], transform.position + position, Quaternion.identity, transform);
+                    if (AreCarsBlocked())
+                    {
+                        DestroyImmediate(block);
+                        continue;
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
 
     public void GenerateRoadBlocks()
@@ -189,6 +251,9 @@ public class LevelGenerator : FateMonoBehaviour
         for (int i = 0; i < cars.Count; i++)
         {
             Car car = cars[i];
+            if (IsAxisBlocked(car))
+                return true;
+            /*
             float dot = Quaternion.Dot(Quaternion.LookRotation(car.transform.forward), Quaternion.LookRotation(Vector3.forward));
             //Vertical car
             if (dot < 0.5f || dot > 0.9f)
@@ -205,9 +270,46 @@ public class LevelGenerator : FateMonoBehaviour
                 bool leftBlocked = IsLeftRoadBlocked(car);
                 if (rightBlocked && leftBlocked)
                     return true;
-            }
+            }*/
         }
         return false;
+    }
+    private void GenerateRoad()
+    {
+
+        Road road = (PrefabUtility.InstantiatePrefab(roadPrefab) as GameObject).GetComponent<Road>();
+        road.transform.SetParent(transform);
+        road.Build(width + 2, length + 2);
+    }
+
+    private bool IsAxisBlocked(Car car)
+    {
+        int overlapBoxLength = width > length ? width : length;
+        Collider[] colliders = Physics.OverlapBox(car.transform.position, new Vector3(0.9f, 2, overlapBoxLength - 0.1f), car.transform.rotation, blockLayerMask, QueryTriggerInteraction.Collide);
+        int numberOfBlocksInBehind = 0;
+        int numberOfBlocksInFront = 0;
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            // Assume you have two objects: object1 and object2
+
+            Vector3 relativePos = colliders[i].transform.position - car.transform.position;
+            float dotProductForward = Vector3.Dot(relativePos, car.transform.forward);
+
+            if (dotProductForward > 0)
+            {
+                numberOfBlocksInFront++;
+            }
+            else if (dotProductForward < 0)
+            {
+                numberOfBlocksInBehind++;
+            }
+            else
+            {
+                Debug.Log("object1 and object2 are in the same position relative to each other on the z-axis");
+            }
+
+        }
+        return numberOfBlocksInBehind > 0 && numberOfBlocksInFront > 0;
     }
 
     private bool IsLeftRoadBlocked(Car car)
