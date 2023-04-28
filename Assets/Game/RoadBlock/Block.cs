@@ -7,7 +7,6 @@ public class Block : FateMonoBehaviour, ICarRaycastBlock, IShakeable
 {
     [SerializeField] private Animator shakeableAnimator;
     [SerializeField] private int width = 2, length = 1;
-    [SerializeField] private LayerMask gridLayerMask;
 
     public Vector3 GetOriginPosition()
     {
