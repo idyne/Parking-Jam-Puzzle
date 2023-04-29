@@ -49,9 +49,10 @@ namespace FateGames.Core
             if (sceneIndex < 0 || sceneIndex >= UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings)
                 throw new System.ArgumentOutOfRangeException();
             DOTween.KillAll();
+            SDKManager.Instance.HideBannerAd();
             gameState.Value = GameState.LOADING;
             if (async)
-                GameManager.Instance.StartCoroutine (LoadSceneAsynchronouslyRoutine(sceneIndex));
+                GameManager.Instance.StartCoroutine(LoadSceneAsynchronouslyRoutine(sceneIndex));
             else UnityEngine.SceneManagement.SceneManager.LoadScene(sceneIndex);
         }
 

@@ -10,35 +10,33 @@ using Firebase;
 using Firebase.Analytics;
 using Firebase.Extensions;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 public class SDKManager : MonoBehaviour
 {
-    [Header("AD SETTINGS")]
-    public float timePassed;
-    [SerializeField] float timeIntervalBetweenInterstitial;
-    [SerializeField] public float firstInterstitialTime;
-    public bool canShowInterstitial;
-    void Update()
+    private static SDKManager instance = null;
+    public static SDKManager Instance
     {
-        if (!canShowInterstitial)
+        get
         {
-            if (timePassed >= timeIntervalBetweenInterstitial)
-            {
-                Debug.Log("Time has run out!");
-                timePassed = 0;
-                canShowInterstitial = true;
-            }
-            else
-            {
-                timePassed += Time.deltaTime;
-            }
+            if (instance == null) instance = FindObjectOfType<SDKManager>();
+            return instance;
         }
     }
+    [Header("AD SETTINGS")]
+    [SerializeField] float defaultTimeIntervalBetweenInterstitial = 60;
+    [SerializeField] public float defaultFirstInterstitialTime = 60;
+    private float lastInterstitialShowTime = float.MinValue;
+    float timeIntervalBetweenInterstitial => Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("time_interval_between_interstitial").LongValue;
+    float firstInterstitialTime => Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("first_interstitial_time").LongValue;
+    public bool canShowInterstitial => Time.time >= lastInterstitialShowTime + timeIntervalBetweenInterstitial && Time.time >= firstInterstitialTime;
     [SerializeField] private UnityEvent onInitialized;
     private bool facebookInitialized = false;
     private bool interstitialInitialized = false;
     private bool bannerInitialized = false;
     private bool rewardedInitialized = false;
+    private bool isFirebaseInitialized = false;
+    private bool isRemoteConfigInitialized = false;
 
 #if UNITY_STANDALONE || UNITY_IOS
     private const string BannerAdUnitId = "fdda5b43d1149b6a";
@@ -75,7 +73,7 @@ public class SDKManager : MonoBehaviour
     private void OnEnable()
     {
 
-
+        InitializeFirebase();
 
         // Firebase SDK is initialized
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -127,11 +125,89 @@ public class SDKManager : MonoBehaviour
             yield return new WaitUntil(() =>
             {
 
-                return facebookInitialized/* && bannerInitialized */&& interstitialInitialized && rewardedInitialized;
+                return isFirebaseInitialized && isRemoteConfigInitialized && facebookInitialized/* && bannerInitialized */&& interstitialInitialized && rewardedInitialized;
             });
             onInitialized.Invoke();
         }
+
         StartCoroutine(waitForInitializations());
+    }
+    void InitializeFirebase()
+    {
+        // [START set_defaults]
+        System.Collections.Generic.Dictionary<string, object> defaults =
+          new System.Collections.Generic.Dictionary<string, object>();
+
+        // These are the values that are used if we haven't fetched data from the
+        // server
+        // yet, or if we ask for values that the server doesn't have:
+        defaults.Add("first_interstitial_time", defaultFirstInterstitialTime);
+        defaults.Add("time_interval_between_interstitial", defaultTimeIntervalBetweenInterstitial);
+
+        Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults)
+          .ContinueWithOnMainThread(task =>
+          {
+              // [END set_defaults]
+              Debug.Log("RemoteConfig configured and ready!");
+
+              isFirebaseInitialized = true;
+              FetchDataAsync();
+          });
+    }
+
+    public Task FetchDataAsync()
+    {
+        Debug.Log("Fetching data...");
+        System.Threading.Tasks.Task fetchTask =
+        Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.FetchAsync(
+            TimeSpan.Zero);
+        return fetchTask.ContinueWithOnMainThread(FetchComplete);
+    }
+    //[END fetch_async]
+
+    void FetchComplete(Task fetchTask)
+    {
+        if (fetchTask.IsCanceled)
+        {
+            Debug.Log("Fetch canceled.");
+        }
+        else if (fetchTask.IsFaulted)
+        {
+            Debug.Log("Fetch encountered an error.");
+        }
+        else if (fetchTask.IsCompleted)
+        {
+            Debug.Log("Fetch completed successfully!");
+        }
+
+        var info = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.Info;
+        switch (info.LastFetchStatus)
+        {
+            case Firebase.RemoteConfig.LastFetchStatus.Success:
+                Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.ActivateAsync()
+                .ContinueWithOnMainThread(task =>
+                {
+                    Debug.Log(String.Format("Remote data loaded and ready (last fetch time {0}).",
+                               info.FetchTime));
+                });
+
+                break;
+            case Firebase.RemoteConfig.LastFetchStatus.Failure:
+                switch (info.LastFetchFailureReason)
+                {
+                    case Firebase.RemoteConfig.FetchFailureReason.Error:
+                        Debug.Log("Fetch failed for unknown reason");
+                        break;
+                    case Firebase.RemoteConfig.FetchFailureReason.Throttled:
+                        Debug.Log("Fetch throttled until " + info.ThrottledEndTime);
+                        break;
+                }
+                break;
+            case Firebase.RemoteConfig.LastFetchStatus.Pending:
+                Debug.Log("Latest Fetch call still pending.");
+                break;
+        }
+        isRemoteConfigInitialized = true;
     }
 
 
@@ -225,7 +301,13 @@ public class SDKManager : MonoBehaviour
 
     public void ShowInterstitial()
     {
-        if (MaxSdk.IsInterstitialReady(InterstitialAdUnitId))
+        Debug.Log("ShowInterstitial");
+        Debug.Log(MaxSdk.IsInterstitialReady(InterstitialAdUnitId));
+        Debug.Log(canShowInterstitial);
+        Debug.Log(lastInterstitialShowTime);
+        Debug.Log(timeIntervalBetweenInterstitial);
+        Debug.Log(firstInterstitialTime);
+        if (MaxSdk.IsInterstitialReady(InterstitialAdUnitId) && canShowInterstitial)
         {
             Debug.Log("Showing");
             MaxSdk.ShowInterstitial(InterstitialAdUnitId);
@@ -278,7 +360,7 @@ public class SDKManager : MonoBehaviour
     private void OnInterstitialDismissedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
 
-
+        lastInterstitialShowTime = Time.time;
         // Interstitial ad is hidden. Pre-load the next ad
         Debug.Log("Interstitial dismissed");
         LoadInterstitial();
@@ -375,6 +457,7 @@ public class SDKManager : MonoBehaviour
     {
         // Rewarded ad is hidden. Pre-load the next ad
         Debug.Log("Rewarded ad dismissed");
+        lastInterstitialShowTime = Time.time;
         LoadRewardedAd();
     }
 
@@ -427,12 +510,35 @@ public class SDKManager : MonoBehaviour
                 MaxSdk.HideBanner(BannerAdUnitId);
 
             }
-
             isBannerShowing = !isBannerShowing;
         }
+    }
 
+    public void ShowBannerAd()
+    {
+        if (Convert.ToBoolean(PlayerPrefs.GetInt("hasPurchasedRemoveAds", 0)))
+        {
 
+            Debug.Log("ADS REMOVED");
+        }
+        else
+        {
+            if (!isBannerShowing)
+            {
+                MaxSdk.ShowBanner(BannerAdUnitId);
 
+            }
+            isBannerShowing = true;
+        }
+    }
+
+    public void HideBannerAd()
+    {
+        if (isBannerShowing)
+        {
+            MaxSdk.ShowBanner(BannerAdUnitId);
+            isBannerShowing = false;
+        }
     }
 
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
