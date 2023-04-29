@@ -31,7 +31,6 @@ public class Road : FateMonoBehaviour
     public static BezierPath BezierPath => Instance.PathCreator.bezierPath;
     public static VertexPath VertexPath => Instance.PathCreator.path;
 
-    private Transform container;
     [SerializeField] public int lastBuiltRoadParkingLotWidth;
     [SerializeField] public int lastBuiltRoadParkingLotLength;
     public PathCreator PathCreator { get => pathCreator; }
@@ -41,6 +40,7 @@ public class Road : FateMonoBehaviour
     {
 
         pathCreator = GetComponent<PathCreator>();
+
     }
 
     private void BuildPath(int parkingLotWidth, int parkingLotLength)
@@ -61,16 +61,8 @@ public class Road : FateMonoBehaviour
     }
     public void Build(int parkingLotWidth, int parkingLotLength)
     {
-        if (!container)
-        {
-            container = transform.Find("Mesh");
-        }
-        if (container)
-        {
-            DestroyImmediate(container.gameObject);
-            container = null;
-        }
-        container = new GameObject("Mesh").transform;
+        while (transform.childCount > 0) DestroyImmediate(transform.GetChild(0).gameObject);
+        Transform container = new GameObject("Mesh").transform;
         container.SetParent(transform);
         Vector3 cursor = transform.position;
         BuildPath(parkingLotWidth, parkingLotLength);
@@ -129,6 +121,33 @@ public class Road : FateMonoBehaviour
         Instantiate(roadEnterExit4x18Prefab, cursor, Quaternion.identity, container);
         lastBuiltRoadParkingLotWidth = parkingLotWidth;
         lastBuiltRoadParkingLotLength = parkingLotLength;
+        GroupByMaterial();
+    }
+
+    private void GroupByMaterial()
+    {
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        List<Transform> containers = new();
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            MeshRenderer renderer = renderers[i];
+            Transform container = transform.Find(renderer.sharedMaterial.name);
+            if (!container)
+            {
+                container = new GameObject(renderer.sharedMaterial.name).transform;
+                container.SetParent(transform);
+            }
+            renderer.transform.SetParent(container);
+            renderer.gameObject.isStatic = false;
+            if (!containers.Contains(container)) containers.Add(container);
+        }
+        for (int i = 0; i < containers.Count; i++)
+        {
+            containers[i].gameObject.isStatic = true;
+            MeshCombiner meshCombiner = containers[i].gameObject.AddComponent<MeshCombiner>();
+            meshCombiner.DestroyCombinedChildren = true;
+            meshCombiner.CombineMeshes(true);
+        }
     }
 }
 #if UNITY_EDITOR

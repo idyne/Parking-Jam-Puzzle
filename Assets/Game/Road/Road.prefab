@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6274883337152943585
 Transform:
@@ -69,6 +69,8 @@ MonoBehaviour:
     type: 3}
   parkingLot1x1Prefab: {fileID: 6836481991368178625, guid: a680a1cfb6227ed4a93f96cc50e4d7dc,
     type: 3}
+  lastBuiltRoadParkingLotWidth: 0
+  lastBuiltRoadParkingLotLength: 0
 --- !u!114 &2486044034260622588
 MonoBehaviour:
   m_ObjectHideFlags: 0

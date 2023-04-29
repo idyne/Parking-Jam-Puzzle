@@ -69,6 +69,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
         initialRotation = transform.rotation;
         roadFollower.Speed = speed;
         bodyMeshRenderer.material.color = color;
+        shakeableAnimator.enabled = false;
     }
 
     public void ResetCar()
@@ -276,7 +277,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     {
         float waitingTime = CalculateWaitingTime(direction, 0);
         Transform point = direction == DragDirection.Forward ? frontPoint : backPoint;
-
+        shakeableAnimator.enabled = false;
         void getOnRoad()
         {
             DisableCollider();
@@ -334,6 +335,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     {
         // Assume you have two objects: object1 and object2
 
+        if (!shakeableAnimator.enabled) shakeableAnimator.enabled = true;
         Vector3 relativePos = hitterTransform.position - transform.position;
         float dotProductRight = Vector3.Dot(relativePos, transform.right);
         float dotProductForward = Vector3.Dot(relativePos, transform.forward);

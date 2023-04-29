@@ -67,11 +67,36 @@ MonoBehaviour:
     length: 3
     prefab: {fileID: 5607823954989516650, guid: f9073e6484dc7ef468fea116ace97ee1,
       type: 3}
-    groupCount: 1
+    groupCount: 0
   - width: 2
     length: 3
     prefab: {fileID: 5607823954989516650, guid: fe41636af87c3b646b0e13ea5817da18,
       type: 3}
+    groupCount: 0
+  - width: 2
+    length: 3
+    prefab: {fileID: 5607823954989516650, guid: 766a9f1d9ced7ed4cba7e47acb786ac2,
+      type: 3}
+    groupCount: 0
+  - width: 2
+    length: 4
+    prefab: {fileID: 771904372011850249, guid: 8aa1c72c96c9a384c87ad480449eb716, type: 3}
+    groupCount: 0
+  - width: 2
+    length: 4
+    prefab: {fileID: 771904372011850249, guid: 29f03797035ca7a4697dd95b9cd029bd, type: 3}
+    groupCount: 0
+  - width: 2
+    length: 4
+    prefab: {fileID: 771904372011850249, guid: 79beccc3d9451c94281363e6490b1e56, type: 3}
+    groupCount: 0
+  - width: 2
+    length: 4
+    prefab: {fileID: 771904372011850249, guid: 2197a3562857fc54fa539910adcdf403, type: 3}
+    groupCount: 0
+  - width: 2
+    length: 4
+    prefab: {fileID: 771904372011850249, guid: 2d8c25b1ac22db84fa292ecaaaf8be24, type: 3}
     groupCount: 1
   roadBlockPrefab: {fileID: 5512942212924243378, guid: 96165be246d729840b1886320b50849f,
     type: 3}

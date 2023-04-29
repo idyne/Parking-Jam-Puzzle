@@ -8,6 +8,11 @@ public class Block : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     [SerializeField] private Animator shakeableAnimator;
     [SerializeField] private int width = 2, length = 1;
 
+    private void Awake()
+    {
+        shakeableAnimator.enabled = false;
+    }
+
     public Vector3 GetOriginPosition()
     {
         return transform.position;
@@ -43,7 +48,7 @@ public class Block : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     public void Shake(Transform hitterTransform)
     {
         // Assume you have two objects: object1 and object2
-
+        if (!shakeableAnimator.enabled) shakeableAnimator.enabled = true;
         Vector3 relativePos = hitterTransform.position - transform.position;
         float dotProductRight = Vector3.Dot(relativePos, transform.right);
         float dotProductForward = Vector3.Dot(relativePos, transform.forward);

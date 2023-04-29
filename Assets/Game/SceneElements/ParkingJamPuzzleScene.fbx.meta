@@ -3,67 +3,7 @@ guid: 5fd36214f455a524983c13e3e708cdc8
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Car_7A_D
-    second: {fileID: 2100000, guid: 3c3a002616f59e446be9f7d31b1c1b02, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Ground_01a
-    second: {fileID: 2100000, guid: 8d21b73f47a9e1340b8a505754a6db0a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_ParkingJam_01a
-    second: {fileID: 2100000, guid: f32b7c1bc1b47b6439204aaf5808bd73, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_RoadTex_01a
-    second: {fileID: 2100000, guid: 7b9d8f341a814694eb2b0006702fe944, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_RoadTex_01b
-    second: {fileID: 2100000, guid: 19d53bc800554d142990c2bd29757ca3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: brown
-    second: {fileID: 2100000, guid: e2d546e7cdbf95341bd02a651d505c32, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: green
-    second: {fileID: 2100000, guid: 4a6143c9b47adc549ae038074fdd12f8, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: 1
-    second: {fileID: 2800000, guid: e797e5a34c0c8284bbf0c7e5dcf1fb38, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Car_7A_D
-    second: {fileID: 2800000, guid: 872e62c36d4d94f4dbf782f4a740768d, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: ParkingTex
-    second: {fileID: 2800000, guid: ac4b204c4441b9c4c8b685e1b6a20743, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: RoadCorner_4
-    second: {fileID: 2800000, guid: 45bc0ed3364e94f4c800b276180fa8c6, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: RoadTex_2
-    second: {fileID: 2800000, guid: a1bb6b9a6e4a5bc4fa661491c9aac160, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -92,7 +32,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
