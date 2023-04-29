@@ -37,6 +37,9 @@ public class SDKManager : MonoBehaviour
     private bool rewardedInitialized = false;
     private bool isFirebaseInitialized = false;
     private bool isRemoteConfigInitialized = false;
+    private Action onRewardedAdSucceed;
+    private Action onRewardedAdFailed;
+    private bool rewardedAdSucceed = false;
 
 #if UNITY_STANDALONE || UNITY_IOS
     private const string BannerAdUnitId = "fdda5b43d1149b6a";
@@ -302,11 +305,6 @@ public class SDKManager : MonoBehaviour
     public void ShowInterstitial()
     {
         Debug.Log("ShowInterstitial");
-        Debug.Log(MaxSdk.IsInterstitialReady(InterstitialAdUnitId));
-        Debug.Log(canShowInterstitial);
-        Debug.Log(lastInterstitialShowTime);
-        Debug.Log(timeIntervalBetweenInterstitial);
-        Debug.Log(firstInterstitialTime);
         if (MaxSdk.IsInterstitialReady(InterstitialAdUnitId) && canShowInterstitial)
         {
             Debug.Log("Showing");
@@ -397,10 +395,12 @@ public class SDKManager : MonoBehaviour
         MaxSdk.LoadRewardedAd(RewardedAdUnitId);
     }
 
-    public void ShowRewardedAd()
+    public void ShowRewardedAd(Action onFailed, Action onSucceed)
     {
         if (MaxSdk.IsRewardedAdReady(RewardedAdUnitId))
         {
+            onRewardedAdSucceed = onSucceed;
+            onRewardedAdFailed = onFailed;
             Debug.Log("Showing...");
             MaxSdk.ShowRewardedAd(RewardedAdUnitId);
 
@@ -458,6 +458,13 @@ public class SDKManager : MonoBehaviour
         // Rewarded ad is hidden. Pre-load the next ad
         Debug.Log("Rewarded ad dismissed");
         lastInterstitialShowTime = Time.time;
+        if (!rewardedAdSucceed && onRewardedAdFailed != null)
+            onRewardedAdFailed.Invoke();
+        else if (rewardedAdSucceed && onRewardedAdSucceed != null)
+            onRewardedAdSucceed.Invoke();
+        onRewardedAdSucceed = null;
+        onRewardedAdFailed = null;
+        rewardedAdSucceed = false;
         LoadRewardedAd();
     }
 
@@ -466,6 +473,7 @@ public class SDKManager : MonoBehaviour
     {
         // Rewarded ad was displayed and user should receive the reward
         Debug.Log("Rewarded ad received reward");
+        rewardedAdSucceed = true;
     }
 
 

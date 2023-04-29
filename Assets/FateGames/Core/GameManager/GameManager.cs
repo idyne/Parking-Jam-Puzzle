@@ -101,14 +101,14 @@ namespace FateGames.Core
 
         public void StartLevel()
         {
-            levelManager.StartLevel();
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level_Progress", saveData.Value.Level);
+            levelManager.StartLevel();
         }
 
         public void FinishLevel(bool success)
         {
-            levelManager.FinishLevel(success);
             GameAnalytics.NewProgressionEvent(success ? GAProgressionStatus.Complete : GAProgressionStatus.Fail, "Level_Progress", saveData.Value.Level);
+            levelManager.FinishLevel(success);
         }
 
         public void IncrementLevel()
