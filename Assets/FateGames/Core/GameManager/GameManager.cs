@@ -48,14 +48,14 @@ namespace FateGames.Core
             base.Awake();
             if (duplicate) return;
             Initialize();
-            if (!sceneManager.IsLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene()))
-                sceneManager.LoadCurrentLevel();
+
         }
 
-        private void Start()
+        public void OnSdkManagerFinishedInitializing()
         {
+            if (!sceneManager.IsLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene()))
+                sceneManager.LoadCurrentLevel();
             if (autoSave && !overrideSave) StartCoroutine(AutoSaveRoutine());
-
         }
 
         public void Initialize()
