@@ -16,6 +16,7 @@ public class XPanel : MonoBehaviour
     [SerializeField] private GameObject coinPrefab;
     [SerializeField] private RectTransform from, to;
     [SerializeField] private UnityEvent onCoinAdded;
+    [SerializeField] private UnityEvent onRewardGiven;
     private int coin = 0;
     private float multiplier = 1;
     private int goneCoinCount = 0;
@@ -40,6 +41,12 @@ public class XPanel : MonoBehaviour
     public void Claim()
     {
         claimed = true;
+        SDKManager.Instance.ShowRewardedAd(() => { }, GiveReward);
+    }
+
+    public void GiveReward()
+    {
+        
         int coinCount = 20;
         int singleCoinValue = coin / coinCount;
         for (int i = 0; i < coinCount - 1; i++)
@@ -54,6 +61,7 @@ public class XPanel : MonoBehaviour
             GameManager.Instance.LoadCurrentLevel();
         }
         StartCoroutine(coinAnimationRoutine());
+        onRewardGiven.Invoke();
     }
 
     public void NoThanks()

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "834695005894",
+    "project_id": "parking-jam-puzzle-a4904",
+    "storage_bucket": "parking-jam-puzzle-a4904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834695005894:android:a7e2ca9fa4d22b309839c7",
+        "android_client_info": {
+          "package_name": "com.voyager.parkingjampuzzle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834695005894-ee92njm9md7nol759djdn7m4qu5j888b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSbR9UyYlC6OZiJdAC6xKoUvyLBaXiBoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834695005894-ee92njm9md7nol759djdn7m4qu5j888b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
