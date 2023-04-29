@@ -1,3 +1,4 @@
+using GameAnalyticsSDK;
 using Lofelt.NiceVibrations;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,14 +49,17 @@ namespace FateGames.Core
             base.Awake();
             if (duplicate) return;
             Initialize();
-            if (!sceneManager.IsLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene()))
-                sceneManager.LoadCurrentLevel();
+
         }
 
-        private void Start()
+        public void OnSdkManagerFinishedInitializing()
         {
+            if (!sceneManager.IsLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene()))
+            {
+                sceneManager.LoadCurrentLevel();
+                SDKManager.Instance.ShowBannerAd();
+            }
             if (autoSave && !overrideSave) StartCoroutine(AutoSaveRoutine());
-
         }
 
         public void Initialize()
@@ -97,11 +101,13 @@ namespace FateGames.Core
 
         public void StartLevel()
         {
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Level_Progress", saveData.Value.Level);
             levelManager.StartLevel();
         }
 
         public void FinishLevel(bool success)
         {
+            GameAnalytics.NewProgressionEvent(success ? GAProgressionStatus.Complete : GAProgressionStatus.Fail, "Level_Progress", saveData.Value.Level);
             levelManager.FinishLevel(success);
         }
 
@@ -185,6 +191,7 @@ namespace FateGames.Core
             if (sceneManager.IsLevel(scene))
             {
                 gameState.Value = GameState.BEFORE_START;
+                SDKManager.Instance.ShowInterstitial();
                 if (autoStart)
                     StartLevel();
             }

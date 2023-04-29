@@ -28,6 +28,7 @@ public class LevelGenerator : FateMonoBehaviour
 
     public void Generate()
     {
+#if UNITY_EDITOR
         gameObjectsToDestroy.Clear();
         cars.Clear();
         while (transform.childCount > 0) DestroyImmediate(transform.GetChild(0).gameObject);
@@ -124,6 +125,7 @@ public class LevelGenerator : FateMonoBehaviour
             gameObjectsToDestroy.RemoveAt(0);
             DestroyImmediate(gameObjectToDestroy);
         }
+#endif
     }
 
     private void GenerateBlocks()
@@ -276,10 +278,11 @@ public class LevelGenerator : FateMonoBehaviour
     }
     private void GenerateRoad()
     {
-
+#if UNITY_EDITOR
         Road road = (PrefabUtility.InstantiatePrefab(roadPrefab) as GameObject).GetComponent<Road>();
         road.transform.SetParent(transform);
         road.Build(width + 2, length + 2);
+#endif
     }
 
     private bool IsAxisBlocked(Car car)
