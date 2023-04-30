@@ -76,7 +76,10 @@ public class CarPlatformController : FateMonoBehaviour
         }
         else
         {
-            CheckGameFinishCondition();
+            DOVirtual.DelayedCall(0.4f, () =>
+            {
+                CheckGameFinishCondition();
+            });
 
         }
     }

@@ -147,6 +147,7 @@ public class Car : FateMonoBehaviour, ICarRaycastBlock, IShakeable
     public void Move(DragDirection direction)
     {
         if (Moving || goingToRoad) return;
+        GameManager.Instance.PlayHaptic();
         LayerMask layerMask = gameObject.layer;
         gameObject.layer = 0;
         Transform point = direction == DragDirection.Forward ? frontPoint : backPoint;

@@ -67,7 +67,7 @@ public class SDKManager : MonoBehaviour
     private int interstitialRetryAttempt;
     private int rewardedRetryAttempt;
 
-    private bool isBannerShowing;
+    private bool isBannerShowing = false;
 
 
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
@@ -76,7 +76,7 @@ public class SDKManager : MonoBehaviour
     private void OnEnable()
     {
 
-        InitializeFirebase();
+
 
         // Firebase SDK is initialized
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -94,6 +94,7 @@ public class SDKManager : MonoBehaviour
                 Debug.LogError(
                     "Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
+            InitializeFirebase();
         });
 
 
@@ -127,8 +128,7 @@ public class SDKManager : MonoBehaviour
         {
             yield return new WaitUntil(() =>
             {
-
-                return isFirebaseInitialized && isRemoteConfigInitialized && facebookInitialized/* && bannerInitialized */&& interstitialInitialized && rewardedInitialized;
+                return isFirebaseInitialized && isRemoteConfigInitialized && facebookInitialized/* && bannerInitialized */;
             });
             onInitialized.Invoke();
         }
@@ -497,7 +497,7 @@ public class SDKManager : MonoBehaviour
         // Set background or background color for banners to be fully functional.
         MaxSdk.SetBannerBackgroundColor(BannerAdUnitId, Color.white);
     }
-
+    /*
     public void ToggleBannerVisibility()
     {
 
@@ -521,32 +521,17 @@ public class SDKManager : MonoBehaviour
             isBannerShowing = !isBannerShowing;
         }
     }
-
+    */
     public void ShowBannerAd()
     {
-        if (Convert.ToBoolean(PlayerPrefs.GetInt("hasPurchasedRemoveAds", 0)))
-        {
-
-            Debug.Log("ADS REMOVED");
-        }
-        else
-        {
-            if (!isBannerShowing)
-            {
-                MaxSdk.ShowBanner(BannerAdUnitId);
-
-            }
-            isBannerShowing = true;
-        }
+        Debug.Log("ShowBannerAd");
+        MaxSdk.ShowBanner(BannerAdUnitId);
     }
 
     public void HideBannerAd()
     {
-        if (isBannerShowing)
-        {
-            MaxSdk.ShowBanner(BannerAdUnitId);
-            isBannerShowing = false;
-        }
+        Debug.Log("HideBannerAd");
+        MaxSdk.HideBanner(BannerAdUnitId);
     }
 
     private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -555,6 +540,7 @@ public class SDKManager : MonoBehaviour
         // If you have already called MaxSdk.ShowBanner(BannerAdUnitId) it will automatically be shown on the next ad refresh.
         Debug.Log("Banner ad loaded");
         bannerInitialized = true;
+        ShowBannerAd();
     }
 
     private void OnBannerAdFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)

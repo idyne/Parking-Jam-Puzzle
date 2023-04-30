@@ -58,7 +58,6 @@ namespace FateGames.Core
             if (!sceneManager.IsLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene()))
             {
                 sceneManager.LoadCurrentLevel();
-                SDKManager.Instance.ShowBannerAd();
             }
             if (autoSave && !overrideSave) StartCoroutine(AutoSaveRoutine());
         }
@@ -192,6 +191,7 @@ namespace FateGames.Core
             if (sceneManager.IsLevel(scene))
             {
                 gameState.Value = GameState.BEFORE_START;
+                SDKManager.Instance.ShowBannerAd();
                 SDKManager.Instance.ShowInterstitial();
                 if (autoStart)
                     StartLevel();

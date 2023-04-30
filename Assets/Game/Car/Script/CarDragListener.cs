@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FateGames.Core;
-
+using UnityEngine.EventSystems;
 public class CarDragListener : MonoBehaviour
 {
     [SerializeField] private LayerMask carLayerMask;
@@ -23,6 +23,7 @@ public class CarDragListener : MonoBehaviour
 
     private void CheckDrag()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Input.mousePosition;

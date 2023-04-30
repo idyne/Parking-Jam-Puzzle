@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3b7ec7f09cd4654a9fcf5f7678247ad, type: 3}
-  m_Name: Car Drive Sound
+  m_Name: WinSound
   m_EditorClassIdentifier: 
   tag: 
-  clip: {fileID: 8300000, guid: 303f254207cc57346a7cc9df9fb95b30, type: 3}
+  clip: {fileID: 8300000, guid: 22346888c0e424c49bda0c661acc10a8, type: 3}
   loop: 0
-  spatialBlend: 0.7
-  pitchRangeMin: 0.9
+  spatialBlend: 0.5
+  pitchRangeMin: 1
   pitchRangeMax: 1
   volume: 1

@@ -448,6 +448,7 @@ public class MaxSdkUnityEditor : MaxSdkBase
             if (StubBanners.TryGetValue(adUnitIdentifier, out stubBanner))
             {
                 stubBanner.SetActive(true);
+                stubBanner.GetComponent<Canvas>().enabled = true;
             }
         }
     }
@@ -481,6 +482,7 @@ public class MaxSdkUnityEditor : MaxSdkBase
         if (StubBanners.TryGetValue(adUnitIdentifier, out stubBanner))
         {
             stubBanner.SetActive(false);
+            stubBanner.GetComponent<Canvas>().enabled = false;
         }
     }
 

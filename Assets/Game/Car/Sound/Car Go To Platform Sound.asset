@@ -15,7 +15,7 @@ MonoBehaviour:
   tag: 
   clip: {fileID: 8300000, guid: a3c8f100cb1f28141817f686ad448174, type: 3}
   loop: 0
-  spatialBlend: 0.6
+  spatialBlend: 0.5
   pitchRangeMin: 0.9
   pitchRangeMax: 0.9
   volume: 1
