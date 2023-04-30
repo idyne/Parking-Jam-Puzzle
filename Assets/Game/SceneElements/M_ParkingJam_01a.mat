@@ -12,10 +12,10 @@ Material:
     type: 3}
   m_ValidKeywords:
   - TCP2_MOBILE
-  - TCP2_REFLECTIONS_FRESNEL
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_SPECULAR_STYLIZED
   m_InvalidKeywords:
+  - TCP2_REFLECTIONS_FRESNEL
   - TCP2_UV_NORMALS_FULL
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

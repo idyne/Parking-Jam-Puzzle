@@ -9,15 +9,17 @@ namespace FateGames.Core
     {
         private GameStateVariable gameState;
         private int firstLevelSceneIndex;
+        private int loopStartLevel;
         private bool loop;
         private SaveDataVariable saveData;
         private GameObject loadingScreenPrefab;
 
 
-        public SceneManager(GameStateVariable gameState, int firstLevelSceneIndex, bool loop, SaveDataVariable saveData, GameObject loadingScreenPrefab)
+        public SceneManager(GameStateVariable gameState, int firstLevelSceneIndex, bool loop, int loopStartLevel, SaveDataVariable saveData, GameObject loadingScreenPrefab)
         {
             this.gameState = gameState;
             this.firstLevelSceneIndex = firstLevelSceneIndex;
+            this.loopStartLevel = loopStartLevel;
             this.loop = loop;
             this.saveData = saveData;
             this.loadingScreenPrefab = loadingScreenPrefab;
@@ -31,11 +33,15 @@ namespace FateGames.Core
             {
                 if (loop)
                 {
-                    int loopedLevel = saveData.Value.Level % levelCount;
-                    if (loopedLevel == 0) loopedLevel = levelCount;
+                    if (saveData.Value.Level <= levelCount)
+                        return saveData.Value.Level;
+                    int level = saveData.Value.Level - 1;
+                    int loopedLevel = (level - levelCount) % (levelCount - (loopStartLevel - 1)) + (loopStartLevel - 1);
+                    loopedLevel += 1;
+                    Debug.Log(firstLevelSceneIndex - 1 + loopedLevel);
                     return firstLevelSceneIndex - 1 + loopedLevel;
                 }
-                return saveData.Value.Level;
+                return Mathf.Clamp(saveData.Value.Level, 1, levelCount);
             }
         }
 

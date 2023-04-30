@@ -57,12 +57,12 @@ MonoBehaviour:
     length: 3
     prefab: {fileID: 5607823954989516650, guid: 3a349ad874aa90b4f89a9dc2bf4f6403,
       type: 3}
-    groupCount: 1
+    groupCount: 0
   - width: 2
     length: 3
     prefab: {fileID: 5607823954989516650, guid: c2638707562b88e4a86c2c3133a970bd,
       type: 3}
-    groupCount: 1
+    groupCount: 0
   - width: 2
     length: 3
     prefab: {fileID: 5607823954989516650, guid: f9073e6484dc7ef468fea116ace97ee1,
@@ -97,7 +97,7 @@ MonoBehaviour:
   - width: 2
     length: 4
     prefab: {fileID: 771904372011850249, guid: 2d8c25b1ac22db84fa292ecaaaf8be24, type: 3}
-    groupCount: 1
+    groupCount: 0
   roadBlockPrefab: {fileID: 5512942212924243378, guid: 96165be246d729840b1886320b50849f,
     type: 3}
   blockPrefabs:
@@ -105,4 +105,4 @@ MonoBehaviour:
   - {fileID: 8929012649268076519, guid: 4f7a98684d85dea4da021f46b00db2d7, type: 3}
   roadPrefab: {fileID: 7916424323997463445, guid: 9f1a33a02f931ce4d8f53252e1b473b5,
     type: 3}
-  numberOfBlocks: 3
+  numberOfBlocks: 0

@@ -125,6 +125,7 @@ public class LevelGenerator : FateMonoBehaviour
             gameObjectsToDestroy.RemoveAt(0);
             DestroyImmediate(gameObjectToDestroy);
         }
+        EditorUtility.SetDirty(this);
 #endif
     }
 

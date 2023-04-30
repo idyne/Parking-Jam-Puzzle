@@ -8,13 +8,103 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FateGames/Core/Bootstrap/Bootstrap.unity
     guid: 42d4469b68d16414a8bb332c68632f5e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Test/Test.unity
     guid: 3be2261c2632dac44ae393aa3c5d0bab
-  - enabled: 0
-    path: Assets/Game/Level_1.unity
+  - enabled: 1
+    path: Assets/Game/Levels/Level 1.unity
     guid: 9f71efbb8dd652245bae0f72f4f40a0d
-  - enabled: 0
-    path: Assets/Game/Level_2.unity
+  - enabled: 1
+    path: Assets/Game/Levels/Level 2.unity
     guid: 2d3ba37106ca1ab42a011209f73778e4
+  - enabled: 1
+    path: Assets/Game/Levels/Level 3.unity
+    guid: 777405b71291e3346a61ac505f4a54ee
+  - enabled: 1
+    path: Assets/Game/Levels/Level 4 1.unity
+    guid: 66bf484c697212c4896cb7edeffff46d
+  - enabled: 1
+    path: Assets/Game/Levels/Level 4 2.unity
+    guid: 1abcbdd52ab24754f8a00022a8d74fd2
+  - enabled: 1
+    path: Assets/Game/Levels/Level 4.unity
+    guid: be045f2605bb8d345ba7731d0f6aadc8
+  - enabled: 1
+    path: Assets/Game/Levels/Level 5 1.unity
+    guid: 6620a40f769e63b44952200cd1451d4e
+  - enabled: 1
+    path: Assets/Game/Levels/Level 5 2.unity
+    guid: f4afd71e0b6493d49a3f14c5234bebdb
+  - enabled: 1
+    path: Assets/Game/Levels/Level 5.unity
+    guid: 33a94ae2136c19a4db96b252191854cd
+  - enabled: 1
+    path: Assets/Game/Levels/Level 6 1.unity
+    guid: c5e5565c56ab86f4d96ad39b6a06e7ac
+  - enabled: 1
+    path: Assets/Game/Levels/Level 6 2.unity
+    guid: c35b94f9ea8f824488330d76ec6424e2
+  - enabled: 1
+    path: Assets/Game/Levels/Level 6 3.unity
+    guid: 93b2b8351fa6cdb4d82c6ff4ace5cf04
+  - enabled: 1
+    path: Assets/Game/Levels/Level 6 4.unity
+    guid: 47582fad528ea354788d2877163d651e
+  - enabled: 1
+    path: Assets/Game/Levels/Level 6.unity
+    guid: fb35f65f37bf76441b70e8f5e524681d
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 1.unity
+    guid: 3b7402e0d9dcfe44082df2099f8b96ac
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 2.unity
+    guid: 5eae99c29ea6baf49a25784f42825dab
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 3.unity
+    guid: 849172314fffeed4e84a67ddae309141
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 4.unity
+    guid: c41651e34d3412547ae773175a805c65
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 5.unity
+    guid: 6c1d11a474baa0a4da1a3bc6c1d37624
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 6.unity
+    guid: 6ef966e28904fc04c8d9dbb5fcf73e58
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 7.unity
+    guid: cb5215c993dd10b4db70573f983b8c4d
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7 8.unity
+    guid: e029b260fcd51c24f9125f46dce2531c
+  - enabled: 1
+    path: Assets/Game/Levels/Level 7.unity
+    guid: f79d34bbd14958e44916bbff15d65134
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8 1.unity
+    guid: 97cb501df52c02f47a10e4c3fe762883
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8 2.unity
+    guid: 590e236c4e651b946adfe41b17fcf28d
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8 3.unity
+    guid: cfa86c3a447b232458757c686f631866
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8 4.unity
+    guid: c8b7b4b6c7327a24c9c39c4c89f50203
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8 5.unity
+    guid: 09d329fb12a1d2b4abf6c7f15af66a8a
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8 6.unity
+    guid: bf2f48eafe493b848b10791da50dfcf9
+  - enabled: 1
+    path: Assets/Game/Levels/Level 8.unity
+    guid: 292944e691448d546be08c97c55a2907
+  - enabled: 1
+    path: Assets/Game/Levels/Level 9.unity
+    guid: c980daddcc7b80b4ab3885627db23516
+  - enabled: 1
+    path: Assets/Game/Levels/Level 10.unity
+    guid: 6035c23b11f68054aa7194b7e9202d8c
   m_configObjects: {}

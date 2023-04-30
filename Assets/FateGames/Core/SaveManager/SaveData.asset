@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SaveData
   m_EditorClassIdentifier: 
   value:
-    Level: 1
+    Coin: 13495
+    Level: 18
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

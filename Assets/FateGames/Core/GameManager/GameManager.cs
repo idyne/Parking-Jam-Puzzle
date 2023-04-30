@@ -21,6 +21,7 @@ namespace FateGames.Core
         [SerializeField] private SaveDataVariable saveData, overrideSaveData;
         [Header("Scene Management")]
         [SerializeField] private int firstLevelSceneIndex = 1;
+        [SerializeField] private int loopStartLevel = 10;
         [SerializeField] private bool loop;
         [SerializeField] private GameObject loadingScreen;
         [Header("Level Management")]
@@ -84,7 +85,7 @@ namespace FateGames.Core
         }
         private void InitializeSceneManagement()
         {
-            sceneManager = new(gameState, firstLevelSceneIndex, loop, saveData, loadingScreen);
+            sceneManager = new(gameState, firstLevelSceneIndex, loop, loopStartLevel, saveData, loadingScreen);
         }
         private void InitializeLevelManagement()
         {

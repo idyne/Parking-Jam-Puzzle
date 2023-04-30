@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: OverrideSaveData
   m_EditorClassIdentifier: 
   value:
-    Level: 1
+    Coin: 0
+    Level: 33
   OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
