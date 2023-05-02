@@ -191,7 +191,7 @@ namespace FateGames.Core
             if (sceneManager.IsLevel(scene))
             {
                 gameState.Value = GameState.BEFORE_START;
-                SDKManager.Instance.ShowBannerAd();
+                //SDKManager.Instance.ShowBannerAd();
                 SDKManager.Instance.ShowInterstitial();
                 if (autoStart)
                     StartLevel();

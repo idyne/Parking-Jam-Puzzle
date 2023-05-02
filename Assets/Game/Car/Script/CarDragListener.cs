@@ -23,13 +23,16 @@ public class CarDragListener : MonoBehaviour
 
     private void CheckDrag()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Input.mousePosition;
             Ray ray = mainCamera.ScreenPointToRay(mousePosition);
             RaycastHit hit;
-
+            selectedCar = null;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, carLayerMask))
             {
                 selectedCar = hit.transform.GetComponent<Car>();

@@ -203,6 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f4cc24426276b4caf1b052debfa543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTimeIntervalBetweenInterstitial: 60
+  defaultFirstInterstitialTime: 60
   onInitialized:
     m_PersistentCalls:
       m_Calls:
@@ -238,6 +240,7 @@ MonoBehaviour:
   saveData: {fileID: 11400000, guid: 2fbe29c554af5d84b9bdecaab48fec86, type: 2}
   overrideSaveData: {fileID: 11400000, guid: b5d6f087333e7a046997d6bebf2f27b2, type: 2}
   firstLevelSceneIndex: 1
+  loopStartLevel: 20
   loop: 1
   loadingScreen: {fileID: 794140202483712576, guid: 831193ba506c21345bb4923294711758,
     type: 3}

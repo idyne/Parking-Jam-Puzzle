@@ -40,7 +40,7 @@ public class SDKManager : MonoBehaviour
     private Action onRewardedAdSucceed;
     private Action onRewardedAdFailed;
     private bool rewardedAdSucceed = false;
-
+    private static bool isInitialized = false;
 #if UNITY_STANDALONE || UNITY_IOS
     private const string BannerAdUnitId = "fdda5b43d1149b6a";
     private const string InterstitialAdUnitId = "5e77c66e430b532d";
@@ -73,11 +73,14 @@ public class SDKManager : MonoBehaviour
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
 
 
-    private void OnEnable()
+    private void Awake()
     {
-
-
-
+        if (isInitialized)
+        {
+            Destroy(this);
+            return;
+        }
+        isInitialized = true;
         // Firebase SDK is initialized
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
