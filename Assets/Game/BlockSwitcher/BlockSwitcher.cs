@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Block Switcher")]
 public class BlockSwitcher : ScriptableObject
 {
+#if UNITY_EDITOR
     [SerializeField] private GameObject roadBlockPrefab;
     public void SwitchBlocks()
     {
@@ -23,7 +24,9 @@ public class BlockSwitcher : ScriptableObject
             obj = GameObject.Find("RoadBlock(Clone)");
         }
     }
+#endif
 }
+#if UNITY_EDITOR
 [CustomEditor(typeof(BlockSwitcher))]
 public class BlockSwitcherEditor : Editor
 {
@@ -40,3 +43,4 @@ public class BlockSwitcherEditor : Editor
             blockSwitcher.SwitchBlocks();
     }
 }
+#endif
