@@ -17,6 +17,7 @@ public class XPanel : MonoBehaviour
     [SerializeField] private RectTransform from, to;
     [SerializeField] private UnityEvent onCoinAdded;
     [SerializeField] private UnityEvent onRewardGiven;
+    [SerializeField] private SoundEntity coinSound;
     private int coin = 0;
     private float multiplier = 1;
     private int goneCoinCount = 0;
@@ -94,6 +95,7 @@ public class XPanel : MonoBehaviour
         yield return new WaitForSeconds(delayAfterSpread);
         coinTransform.DOMove(to.position, 1f).SetEase(Ease.InOutCubic).OnComplete(() => { goneToField = true; });
         yield return new WaitUntil(() => goneToField);
+        GameManager.Instance.PlaySound(coinSound);
         saveData.Value.Coin += value;
         onCoinAdded.Invoke();
         goneCoinCount++;

@@ -1298,6 +1298,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  coinSound: {fileID: 11400000, guid: b5ec661796f5307429e20dd34cec87a3, type: 2}
 --- !u!1 &5877225821496454348
 GameObject:
   m_ObjectHideFlags: 0
